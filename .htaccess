@@ -1,0 +1,15 @@
+# আপলোড করা ছবির ফোল্ডার — নিরাপত্তা নিয়ম
+# ডিরেক্টরি লিস্টিং ও CGI/স্ক্রিপ্ট চালানো বন্ধ থাকে
+
+Options -Indexes -ExecCGI
+
+<FilesMatch "\.(php|phtml|phar|cgi|pl|py|sh|asp|aspx|jsp|htaccess|htpasswd)$">
+    Require all denied
+</FilesMatch>
+
+# কোনো কারণে PHP ফাইল ঢুকে গেলেও সেটি টেক্সট হিসেবে দেখাবে, চালাবে না
+<IfModule mod_mime.c>
+    RemoveHandler .php .phtml .phar
+    RemoveType .php .phtml .phar
+    AddType text/plain .php .phtml .phar
+</IfModule>
